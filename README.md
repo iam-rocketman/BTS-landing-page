@@ -15,8 +15,8 @@ Designed for event booth attendees to effortlessly capture and share their AR250
 
 ## 🚀 Live Demo & Hosting
 
-You can view this site on GitHub Pages:
-[https://iam-rocketman.github.io/BTS-landing-page/](https://iam-rocketman.github.io/BTS-landing-page/)
+- **Custom Domain:** [https://bts.anscer.com](https://bts.anscer.com)
+- **GitHub Pages Default:** [https://iam-rocketman.github.io/BTS-landing-page/](https://iam-rocketman.github.io/BTS-landing-page/)
 
 *(To enable GitHub Pages: Go to Repository **Settings** > **Pages** > Select branch `main` and root `/` folder, then Save).*
 
