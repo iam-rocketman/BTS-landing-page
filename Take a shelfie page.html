@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Share Your Shelfie | ANSCER Robotics</title>
+<style>
+  :root{
+    --navy:#0B2040; --navy-2:#13315f; --accent:#2f7bff; --li:#0a66c2; --li-dark:#004182;
+    --bg:#f3f6fb; --card:#fff; --text:#0B2040; --muted:#5b6b86; --line:#e3e9f3; --ok:#0f9d58;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text); min-height:100vh;
+    background:
+      radial-gradient(900px 400px at 85% -10%, rgba(47,123,255,.35), transparent 60%),
+      radial-gradient(700px 400px at -10% 0%, rgba(47,123,255,.2), transparent 60%),
+      linear-gradient(180deg,var(--navy) 0,var(--navy-2) 260px,var(--bg) 260px);
+    padding:max(20px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom));
+    display:flex;justify-content:center;
+  }
+  .wrap{width:100%;max-width:460px}
+  .brand{background:#fff;border-radius:16px;padding:14px 22px;display:flex;justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);margin-bottom:22px}
+  .brand img{height:52px;width:auto;display:block}
+  .hero{color:#fff;text-align:center;margin-bottom:22px}
+  .tag{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+    padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+  h1{font-size:26px;line-height:1.2;margin:12px 0 6px;font-weight:800;letter-spacing:-.01em}
+  .hero p{margin:0;font-size:14.5px;color:#cfdaf0;line-height:1.5}
+  .card{background:var(--card);border-radius:20px;padding:20px;box-shadow:0 14px 40px rgba(11,32,64,.16);border:1px solid var(--line)}
+  .steps{display:flex;gap:8px;margin-bottom:16px}
+  .step{flex:1;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--muted)}
+  .step b{flex:none;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;
+    display:grid;place-items:center;font-size:12px}
+  .label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 8px}
+  .post{
+    border:1px solid var(--line);border-left:4px solid var(--accent);background:#f9fbff;border-radius:12px;
+    padding:16px;font-size:15px;line-height:1.55;white-space:pre-wrap;word-wrap:break-word;
+    -webkit-user-select:all;user-select:all;margin-bottom:18px;
+  }
+  .post .h{color:var(--li);font-weight:600}
+  .btn-group{display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
+  .btn{
+    width:100%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:15px 18px;border-radius:999px;font-size:15.5px;font-weight:700;color:#fff;font-family:inherit;
+    text-decoration:none;transition:transform .15s, box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:scale(.98)}
+  .btn svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+  .btn-li{
+    background:linear-gradient(135deg,var(--li),#1b84e8);
+    box-shadow:0 8px 20px rgba(10,102,194,.35);
+  }
+  .btn-li:hover{box-shadow:0 10px 24px rgba(10,102,194,.45)}
+  .btn-ig{
+    background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    box-shadow:0 8px 20px rgba(220,39,67,.35);
+  }
+  .btn-ig:hover{box-shadow:0 10px 24px rgba(220,39,67,.45)}
+  .status{min-height:22px;margin-top:10px;text-align:center;font-size:13.5px;font-weight:600;color:var(--ok)}
+  .status.warn{color:#b45309}
+  .browser-links{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:8px;font-size:12.5px;color:var(--muted)}
+  .browser-links a{color:var(--muted);text-decoration:none}
+  .browser-links a:hover{color:var(--li)}
+  .browser-links a.ig:hover{color:#dc2743}
+  footer{text-align:center;margin-top:18px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><img alt="ANSCER Robotics" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgwAAACLCAYAAAANrMFGAAAitElEQVR42u2df3LayNPGHxnzrVTkKtgTMHsCkxMwOYHZE4BPYHICkxOEnMD4BCEnyPgEkU+wwwleqLJSqcWO3j/UJIRIgMSM0Ej9qXLVbpzwYzTT83RPT7cHhmGMciGkXP93BHQ9oL39dyJg4QHB+v/PgWCh1YJH7/gxByD3jfeTVopHjWGy4fEQMEw+fCG7tDl1AQgAPQMv+4h4c1M/gOAHEHzXSvNo/zbm63E/dsyXiEVEACB4ARSPNcM4KBh8IacABgm/egi1khX3lsYRcJvjn34MtRqdwruLgC9HTsT3T1qNy/xc2kK2V0DfA/pRvGG1CnrrpQeoCFAAVKhVUCcj9VrIvgf0Ef/YHvM54rGefdNq5oiIimqwUZ3EPpR0bB8BLGhc1Dp6VkSU8rzEXsQg5dc9X8hhqNWU9d4f3LwWUrli6Bzzakcr2rBOYEFaEXCF+Ae+kHMAMwDTqoqH9ZgXJBI26QAYeMDAF3IJYPoCTDjywJSIy/V/RBRhiwCs4nXzCCCIgNn/AGVaQJyVdEAme34/bgvZ5nmTqMSnZGyZI7kQUvpCKgBfScC2SvLROgBuAHz1hdS+kKOqrAdfyGGJxrwF4KYB/Hsh5GwrT4JhyiomBh7waQX834WQs9dC9isrGOjL7TuX7DzH3geTbOSmLKjy0xay7Qs5pWOWXsk/bgfAhxWgL4R0Vki/FrLvC6kB3JVxzCPgKgK++EKqV0IKXiWMC0TAlQd8MuVYlE4wePujC+uBGPGmmK4yn4EpD0M+D3cFaKQfiZVWKEbArWvC4ZWQwhdSecAnEj9lp9cA/vWFnLD9YRxi7VgEvpDDSggGX8hRBqPRWh0oLuqqLC+EHPNIZIsqkIfbcvirtCLg9nvCVc6ycSHkuAH8i/JHcZK4WQEBH1MwDgqHO19IlefoujSCgdR61g1uwOf1O0XDrcnzqyqLhVV8A2FQka/0UOYkPRJnKudNoFIZ3wj4wsKccZAeAJU12lAawbCKxUIez46jDDvgJMiDxcJlhYRiadeEL2SXjnx6FRrvW19IzhtiXKNF0YapU4KBkohu8iolDgvunRRszGoiFgDMy3qtlryZr3D7yCeNwQpQvM4YF+fuoaKhFILh/EiPKOIEv31wEmQClANTJbEAr6TPmcTCXdXXGYsGpsqi4eSCgaoEXh35Mh1KmGTSRRUnQW5AuR2Dqn2vMgrDmogFFg2M86Jh3x5xcsFg8LyVizntH+tbPr6JjyK8akZc7suW7EjC7K5mU+ySb3AxVdwjTioYyPMwFRJucTGngybErO6FZ2ieVO4cvWwiyBey69X3KGzA4pxxdY9Ic75PJhhyXqPcq464Ctt+YdXYMSHqEF2Iqiks52Vq2Uzza4ZqJjgewjW30GZc3SNWKXvzyQQDeXnGK7udcyjwEGobMl0Bw4puYuMyfRjKpejUcIotI+Afbo7HOM5NkvN9km6Vr4QUtrw8Su6TrO73MvCFDEKt6iYchrY9fQCzCFA/gGBXTsErIcU5ICKgi18/eY7ols3Ymy8Fr4XsG0hkdlIsAJDfatZ+nKkmjdgJGZ5cMDTyF2k6VDSMAUh+5Hv5cCFkUBdxRXUXbF2jfPSAUZaxJDGhEdeC+PkZ/wOkF7d17h+4Tmam29geOcan8K4fPWD2Awg8QCe1/W4L2X4GuhHQ9QAZxTbClB1aApAVaTf+6JXs2O45XidVYJ4nryf6tZ8VWfBs8ErI8abTU7hgoKqDtq+z9XwhhxwWPGgizl4J2S1zKWFT0EZsg/tQKyORC9r4Z/SD10L2STykrpmXEh1HrCw7A0nG9xmYHjJ/aWwV/UzIHg3JizrGED82AVkW0WZiGnKE1hr6Sauj1ivtoet5a3WtNWLbM1n//ylyGCYFvQ9fszyM2iRBnsUhf9M8mBILSXzTahZqNWwCf3nAe8RHHr+9f1nE3pEVW7N68+9CrcSTVuNjvn+o1TTUSnrAWwCPLBaYshNqFYRajUKt2mQTbDLcsqHFQdeMigqpdPia5cHUIgkysnBM5RXk3S+0WjxpNQ61EgCuN4TDtCzj2yhgLDzgcxMQpnNvnrRSoVbdjAb4nsUCc0ooWvGGRLSVvWHTmSxUMBRdwjkCRhxlOJgBV8vMt9GcwMOYroVDWY7dKLpg9ajRA94/adW3uUFnMMD3oVZDFgtMGSIOdGxphf82HK3CBANtRkVfs2pxxbVMfODOlk4ZijJFF2yLzetjz36zGOAmIJB+RPHR5jEUw+RxXGwdT2we5RYiGGwUacroOfMmeDhcBz/73GbsXlf9WLQ4Wmi1aMae1bZouA61GvHjZsqGrRpEUdERhhKU4uUow+G0VhvX/JiD5natoZsGttb3w6k26ATRcM03r5iyQsdj9zbfw7pgoCJNtyceyx7Xdc/E5aH90etOBNzWPffD4vnp8sV+oa1DRcMbFguMA9hw9nqFCYaylGqO6tsEJy8D8hyZ/XzwhVR1FaW2qjp6wKQMV0YXWi1Crt7IuCHera4Xq4LhQkhZohKxHb4FkJm7KuV/eHaPWnoR8MUXMvCFHNWlCZpFkTQvKsmRYZgSCIaoZA1xwMWc8lCZJMgfQBFe4iWADw3gXxIPE1/IYYUFhBXB4HFEkGFKh7XS0BTO7pXs+7YoSY09lwxjRkmQzkcafgBBo9i3vKQfNOI1MfeAIAKUB1Sih0dkSTBw19mT0vWFPPXcHPExUE0EAzWgMbYpe8BnU0cbEXD7SshpHXonmNz4fCGnrt89/66V9oV8hL0GVPvoRHEtkqsoFhBAnIGvDuluWdbNxUJ04TMXRDqtk3BqZ88D2vwYcjlFbc/i61s5kiAv3lSRpuV5nClt7LoIey+5qEoSZNme/SWAGw/4RMcY2hdy8lrIvkObi+moheLlxjC5hJa08LKP1gRDW8h2ZPZu+nih1cJkR74IuOJrlrlwPgmSrsbNS/wRO2sB4QsZXQg584UcljGPxOIaYsHAMPmw4WgsrAkGKsVsyuuYr5vMUKj2o0HRMOa5lQvnO1tGDhVboqO4uxXwf76Q0zoIXT67ZpjsUATYRvuFwIpgIO/TZAOa3zb1Zvz/prpy9bjOQD4PeAXMXP4C37SaecBnBz/6gK5ulqLmQ2QnEfaRlxjDZINuYU0svbwdwWD4Az9uV1ZbaLXwzL4HX7PML7YmLn8ByotxdXNa13xQpzwispSYtuDlxTCH0xay3YidOCvl2V82jgiNCQbyeIxl1nopYWNKWDR1Bt2pcC+Ad7DXIx0AblyO0GyU/F06/Ix7AL5eCDlms8kw9eNCSLmKIwC2bn7NN29uGRMMhksvP6TdUafrVmODn3tUxSiDF08i22Jo4nISJCXTduF4GJz6WQQcLWOYevBayL4vpIqAL7CTt7BmtuWwHw+VXDb5oXdudKFWUz/2qky8Z4sSNYdVm1Q0Tl0AN5beogVg9gMYeY6O0XetdFtI+QxMS1TGPA+XKyDwhexz0iDDlJZ2zvwjSc6BROzkFNL9+WUrBeBowWC6SBOA+0MMXhRvUp8MvefAF3JSRUMbajUi0WCrEEvH9TK+FLXq0xHLBKdtxX7Us0B8i6XLhY8YppzCnqICLvCwXUju6CMJygEwZmAPrbfwTasZgAeDgzOp6gxtxndzbZ7Vt6owTqFW0yYgPOC9w1+js+I6BgzDHImXsBcfJRheCSki4NbgB3yfpTSuZzay0avqHXfyNiUvgcPG6kmr8QvwN+K6Hy4mRV4WlAhpQ5h0eRYyzMnFwuekPMKjBIPhEsvLrK/3pJUyeZ8+qnCHPDpuuealcBjftdKhVqMmIGjcnEqMpJ4pwsGhb9WlNTjDlJRl2u3B3ILhQkhpMknMAyZ5zl0NX4vsUAJnVUXDFAZ7ctQl4hBqNQ216lLU4R3MHoVZo2G5mukzoG287hlHGRjmlIzSIv25BYPh0srzJ61yvR59MZObYKWLOVHHSa6mlz/qMAm1kk3grwj4h+ZeWXtTDGx667Y6a3p26uEzDLOf++2CiZvkuiVB2eQms+6PEh9NYLSKjYyJ5LsWRS3GVZ0RTUCuYu+wxesjf+QB8R3lGRDn85wBXe/XtadeGT5nI14XE4tv8WDhu7JgOC0PoVaSh6FeUN7CcNffyRxhIO/baHRhl6I51HibLBnt8Plvls2ODYJhb/ubVrNQq1GolQy18jzgLYB3lGezPJERsP2cAwuv2XKovTfDVEIknh9QiyizYCDv21iRJs9QwSRKmDRmlM8rfM0S4CTIInjSSoVaTZ606odatQG82RAQhRC5KRhSS8MzDGOc+1AreUgOYSbB0Baybbg1cGoJ6Jxes7HPFgFXVW8lzEmQxYu0tYBoAn+RYLOdQNmymZPTtNe5tFeHVt4Mc2LehXuOIXILhpXhKniG6yisN0BjCWhRhfMYNsZsCE6CLJyN2xeSji6sJU4+W7x1QELdyvyJShTl4z4dTMV4BPAm1CrTGjtYMFB54YHBD3xvKrqwhclNvudyR8ZDebFfCZLZwZNWqhlv6q5Ge6aWXveyDJ04fSGnK0CxaGAqwBzAdahVN08rhCwRBqNq/8WS905RBpNh3nHVDcV3rTRfZTt9xKEZH6nNXfvsL/aOJRABt6c8mvCFnJKjtG7u1eXZyjjsHMpjLhkcJBhowZq8OvXR1h1uwPhRR+e5BglYFO15V7cFRG1ih2URDXAw2ZYEp7VEzgiYnWKj3hALP20BAMWigXGVY5P5zw5csFODn3nZtJwbQJufsShDBIzqEI6k86xaJUHSddw7X0hVhiQ7z9KtgwKwKXRaRW7UbSHbCWLht8/C1z4ZF4mAq2Pm7l7BQKWSTV6jnBTRevfF0HXNtZFYVfya5RoKi9ciCZIWznpu9yLgy6mFQxT3rnAOEuk2581aNAxtfg9fyC51+9yVr9XygE91yG9iKukkTfM6wGf7lDbMRgOWRdU3sFAyelCHUORCq0VdkiBT7vr/FA4n8iKNb0KWkouTxM7Y8lu0ANxdCDkzXVitLWSbEiy/Arg88J/dsWhgMvIQauUd+gM7165bq5x5RzsFA53dmywfPCoiurARZTBtwGoRZahDEiSJv115OT3yIrUv5KSIyp8WSq4DBSZRftNqhgIac0XAVQP41xdyeuxzoeOH4QoIIuA2x0vc0fEFw9jYw4aWnLdenkaLqYLhlZAi5wLaRVD0xmfYYNammEwNkiAPXSwdADe0QQW+kCPTkSbatCYA7ix8T1XScTXBIM9zaQvZpmTXKfVUucNxx64DFg2MxT1sbOnlx1kF9/mOX0wi8x/wqy9277ce8P7QzpW+kFHRD5ASQEUdJmuo1cRC/Y2TQ4skz3e6BPCB5t7SA1QEKA8IzoEga/SMWsT3V7EXYasRmCp4zgS+kB8B3BT4tpvPBRtRjsADFrRuBa1bsQI6ngXx4gspmkC/yCiqJXqnsK0Hzi8PNYPscB/mo4+tRryfHewEn+8wZFes75I9Tl/IUdYKWa5CnUC7OPxct/ScA0MD1rBFa+QqArAiEYFfUbSfm9WG2GwjHss2gMuomOc3O8GcGVP32M6JHvHasPYK3vV6VOBJVkA0MCXiBRg2Ytti2rHoZdnPzlK86DE/op2M61L1rWpJkBb6ofwmImiz6gG4iYDbzR/yunsFiq/7U2xc9J79mtqGyxWgqtztlime71rpyEJCNPHh0OO8PwSDpcSrqtF6rlE3PcuTtVDI823V4bm9nFD417wb6mWDq0Iyhvmm1cxigbRpZsFg4RplZYmA2zp5ETRZ31fgq9Rlft/brKZ6oGiYosbdUJtxQiXDGOPc3q2Jg/q2/CYYyGvu8GM5+OFN6vR9n7Qa2ywBbJutQk1VZtksSQSMuqHWTTQsAXAeA2OchVYLW9HeCLjdFxU724wuRDUKsxsa4Ku6XLPcUrhOVoL0ajK/I2BYps2qZqJhibjBT8AWkrEB1TuxtZ5mu/LzfgoGKn3c4seR2TiP66ZwYS8sZo0DCjVVhY9kUEpFTUQDiwWmECx2tu2sduxpZxvGdMCPIRe9upWHDbUKHEyCrEN04T7UalTieTME8LGiYz9nscAU6bh59mzwTVrkfB1hmPAjOIraXLNc42ASZNUF8T1tyGUXmyPEtyeq1KvkoQl0WSwwRULVeK0I8CilQdUZKQm+Rnkcneca5n84lgT5BgX0OWCxcJBomCKuLud8V1QPeB9qxQmOzEloxscHVo4mnhOuWp6BEx1NKbJR3aIMgDtJkKFWQaiVJO92XpHhXwK4dkksbD2PLkWpXIw2PAJ4c2gZe4axgc2jiQi42u7YewY+jjD27OroZbiWBBlqNQ21EiQcXPZwH17iMPjU5fnzpNX4JS6X7UpC5BLAu1ArPoJgyrKGlK3jYW/raOKMzkHuediPHthhXb87Gc6RY595Sh7uW8fm/9wD3oZayVMXZjLFd610qNXQA96W+Ihr6QHvm4CoSx8Zxi3hbckBam0eTZwBP0vILnnYc4uFzyS8agt5uh8dXGgq1GrYBP4CcF3iDeshAv4JtRJVnWtPWqknrfovwN80l8pgk+YA3jUB8aTVmHMVmBJjxWmNgKv1TcCztcL3+GgiN8+cB7IWDSM4mli40GoRajV90qofauVFwD+0aZ3y2GJOn+FNqJUsY30FixGHUahVe0PEFSkelgDuKZIjQq0mLBQYB+xvYPHm2uSVkOJ8M6RxIeTJPZfnDPXXKZx8UiJgYTo0/AxMz4GjnsX5rzbLhdIE+s/xmbS1514EtDnPgLgK6n+APAO6UZzdL2CnxPTcA4IofvaKz8h/Rq6mAEA3uiQ9A5M3u5YeoFwd9zLYwapiemyjrZb3prG9j3s8JRgmHxvFTSQZgzYOEEtebDQCAPgBBGfAou5HWnkgj0dsjL8gMbeLwAMWEbDwgOAcCDh6wDAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMw6Tg8RDYxRey6wHtzT+LgEWoVcCjw5jilZDiHBDbf/6kleLRYXg91Hs9pI3HORAstFocLBh8IbsAJobUh4oA/QKo71rpuj2UtpDtFdAHIOmns+efzAEoAKoJzLI8OMdE0wRA16DKXQAIfgDB/wBV1XHbxWsh+14817oALvfNMw8IIkC9ALMqrE3TcyojozIL/rSxCbWSFV8Pa7u7bz0saa+qzHo40j4AwINHe9EuUeVdCCkj4IuFzzwHMGkC06obdBJdIwCDI1/qHsCkatEHX0gFoGfr9T3gM4BJ1b2HV0KKRjzPhgBaR7zUgweMXR4v23Nqz3x7W+axSxubUKtKRZTbQrafgVEUr4lar4c1F0KOo9g+dI54mSWA6Qsw2RZTZxY/ewfAhxWgL4QcV9WA+0JOAXw1IBZAr/HVF3L6SkgB5iAi4CoCvvhCqiqOW1vIti/kpAH8C+DmSOMIAL31eJHYZRjnNsYVoCPgltdD7LT6QgY0Hp0jX64F4KYB/OsLOW0L2S5CMPx88wi49YUMNt+4Al7zsAEEhoTCH8KhAQS+kEM2DdkWPo1bZTbBCyHlKp5nNzbGC8DXqgp6pnpsbYwtG+vBNbtL9k7hsKOHzHvRKo5YAADOC/xelytAtYWUrh9RUFThUKGwRGzwN+keMNlbAO58IWWoVVWFw0PORb1v3FRbSFGBeTaMgLsjxvOQeYYIuL0QsnsODOuYD8K4wWsh+wCmGYTCI+J8pzXiQO/bGbtLEVW1Z0zWe1Dg/T4e3ShOyN9lU5fNeMx3C4Ys53QXQsofQJuSTvo7HsrlCpgh/ntVFgsPiM+AUpM/6TxaIlZvux7YwBcSVRQNeZOw6OZJf8fZZWsVJ/IOHZ5nQ+wXC49kQFVa3ss6EZfG62qHaLhySdDnmTu+kFGCnXv/pBVHWKqxHuYAZh4w27V3bSQE9ndstANfyCDUalLmcWnsFlAPETD5ptXskD08isdjuPV6vyXjpyY9HpPYQw93vEM4vCv7g0j5XhPsCA17wOdnYJQ165bEw3SPcPgYajVydLErWEjCoqSnadpG+AL87WIG9AHG8dEDRlnXJ82z8R7B+1DVbPq6CIaqJT1SyP3rHqEwDrWa5rAfaUmTj02g1OJ5z7hcZx2PlP37zaYzYiWHIdRq2ozDoY8pf2XsWj4DhcPSxMIyAv550qqfZ4P6rpUmI31N4aMkbugzMMRCq8WTVn2kHG00YsXsonG82yFK34dadfOIeZpnQw94u2Oe9TingSkLtE/smuv3TaCbZ3Mk+zFGHOl9dEksEMMdDvk074tu7N/X25FLa0mPC60WzfhBzBN+3Vo5ZMzbQra9jXOcbbEAQB4S9jnkQdHkXaZsFtMqJY6awovVcBJdB79O6jyjqN/Rm/mTVqoZn+cmCnrKaZA8s5hT87w75H4danV03k2oVdD8JRpcEQtA8tH+3ET0fqHVIkl0WL0lsdBq4aWoIM8hwUDn4a00sWCybgK9VppoWJ/NM1sbYMqvhEvfgzz7y5RNfGjynvgeQY8oXYQxTFHrQe7IuznKi05bDw6JBaTYipnNN7R+rZKM3DzBIDnh/VEW6iDNiNsoskSvOUr59YBrNFSPtpDtKOWZe8B7ExGsJCOJdOHe4yMw5SkiVYP+GwjB26h1cL1W0JbtyDcEwxEkmfUceEBNNI9rXsbRnxDNEyRfjY/YnNyENqVD7pKz9h+tJmUF2oVeMD7FOPD84w5WXQByUngy3OHbz8VILKsOpOFCAbPIcOdQKKX9VJAyPYlfWHwgtlgR6GmwKGvMTrVpn0eH3MlHYH1OJrFnGjjG6ashwnXCvnlTCTtVzbX7BmPeToUkk3y+u6LuK5H75EUZWhxSd/fjMg4RXDNXPj8tMAvU6ILyvb7kwGeJv2u4XDNFMZpZEp0YcJDs9MhajWAmS3RwIJh9+B0U9RvkRvRNGWT7PMTigtppSRGPbhSg2HHpjw99TwDCwbmNAI66ch6xtGF3/aAtDV72QCCCyGNly8oRDBEjhqdtM9tM3dhm2aKOIkcuwFgEmrGNPSF1EhOSF2+OHRs46U/S1XUZ6BE26QbE102zUwZHLUi14MLUPQxrbx+KwJuV4D2hZy+FrJvQjxY7yVBpWmTklceXdibkjzXIj/AQquFL+Q8QXE7LxiyFAiimuddAO3VniYrETB0qcJjmjA9QZtznTDPLsEwBQuGKFlYax6dPxzK/ioel7RaFS0AAy9uIgVfyEcAKgLU/wCVNWJjXTA8pydtuaAWy2Iskwy581DHOZPMAfS/Fb/R2qBwQe3FhqQHhimvR8386VBKxMcTh+xXlwAuPeBmLSA8YBYBs0McFKtHElR4I21TmLr4gLzyCB027H8+m+DF8j3kIm0BP1GGYfaxrlRJ16OXWZ1i2qO/+kLqCyHHuxImrQmG10L2dyQHPoSOeoFR8jEFU45nc9UA/vWF5BLaDMPUKtLwpNW4CQgSDvMcL9OJgFuyoZMkG2pcMLwWsu8LqTzgE9LPVUYOP5tuST7HAy+TVAbUqtll0SBYDDMMk0c4hFoJAG8AfES+482bFRBsX98/32E8hlka0FDiVneHSFhz7VB04RF/ngudwqh2qzi587bbfSWkOI83VEkFXpLyOy5JNJS+NrwHLBKSvDo8zxjmFxdCSs5jyGRfg7Vz3hay/V98bCER/xyS79ABoHwhf/ZL2pX0OIjMf4drkw1DihBsSRtRkR+AzpOSRJiu60KgGxAacT7JmPq3TxLG6ZKSbscl/0oBEmpJ+EJ2CxbXSYKBI1lM0Sgk5L5R/yEWDDkjD4hTBGZbAqKP9LL0oD+frm1DUYWblhHwj2NiITXBscimPDuK+gS8DH4q6SlSOnxGwKjsRxM/0p/lsKjPQKFHFqbMyXlOmXMeFxEzKiC+aTULtRpu5D2kJUxeklNmXTAsPeB9ExBFFjsyrHT/4KzYokCjLJ+txqIh8JLLxrb+K7mh+V/6s+zzPGPqBkUQkzocX3Eysx3x8KTV+CWOIjymiLW+dcEQAcMnrcaulvOk87Ikr/WqiKY8lEOSdAQyD6tRa8C0ZzJNEXjdsi9YD/ic8KvOWtnbhIxwojhpOtKPg6kcs5Q1PuKhsSfUmumR2qt9guGdB7w95CcC/klRJVW43pa4CTUKqCOxox/8lKd3qmeSRLfsn33HFeSx7TW0Ss7/gAd85tr9zCl4SWkyFQEj7qBq13nBjv0lNenRA4IsGam+kO8AfNj64xZ5fX2XJ24DuEn4Vc8XcmgrL+NCyHGU3g9+wlM702ZcetEaajX141LZ27cjOqtYOFrxrCgfZ5Dya55nzMnEvy/kA/60gS1y1iSPkh1Sbm1hX4Qhq8GbICGjOgKufCFHLk9cxHdZk7iz0WbaF3KYViGT+8Gnk+Z5eO5UTRyn/PmNjaMJX8jujmjVA19hY05M2r7R84U07qi1hWxzjsRujOYwUIfApEzLsY2NtSiasSFPq5ylstSrOEQsALhL+fWcowvpnKcnowYufH6KVj3sEKdDg/OsizihMelmhFPdPplqQnlaac7awKRoeCWkWAFqFdcdcGKveiWk8IUMTB/RRMknAnPjguG7VjpKNjTru5xOQklpaQa0FQFfsnReTINeI00swAOGHF1IXzxRikfyw6ErqDtE91o0HJ0XRBG/NLEAAGOXun0y1YWctccdokEdu2FeCCkbsY24pB8nREMjHpvLRlyRcWTQYU1KtFfGBQMAfNNqlpLxfekL6ax3TOHZ6x2q7NYXUuep0eALOfSF1Hu6N15ziHjngk/1ll260vtdK+3tzvkZUI/7YZ5x8oVUiHON0sTCPR0vMkwpnDXsFtG9BhBcCJk5OZg89GkEfNlaD62yiwYSSYONz/vBF1L7Qg7zOhQbBfCSmACW2lufA8NVrNi2E7huLoScubrxUWIadkQBOh7wyRdyDmDmAbNzINiOCrSFbD/HPd/7iH/2lQF2rUKmdWgxSwD9PS2Zxy6KU1/I6x3zrEXRhgmoNW1ab3s6LpNRPE77qpTeh1oNeXYxJbO7AbVwTnMKWhFwuwJuL4T8TDeOgqSr55t2A7vtRiuKy88HJY0uJEUUOgDuVsDEF3KnXdjci1bxWAzTxsMDPj/RWHrUgvpLwl96e8zGnva6AOZNoOtyaH1PnkEayw1jnwXnxQJ5tUmTMWvZ4W7G8XsItZIuR07I+GWdM3Nk70VRebHgCxkl2Ln3T1qNK/Y9E9db3t4tJXMSVEHrodR2d4dNTdt7koSPOGBclk1ArPdra4WbSGwkJax0nh2vI0AT6Q2ytRBtZZzocwBvKh5Z6GX8OXj8POBz0+HrvOs1RNXXsgqrLMZxXbadIwtM6SMNzXiTs7oePOBt2e1uqJWkcs6H7j1J9nSvWADwW/O+M8tfaoSEhBW6ajmswOTt7qnBnYd1Oe0uV3PMN34A3j1p1a9Cguh3rTRFSa4NzzMAuHe4bDtTQxZaLTbWw9zwy39sAsKVI3OKjL2BnQZxD01AbO9BRTSfShMGE9crdq1rcG807zhmAs/XfTdcLqd9Qh4BvKNJPqmgdzUNtWqToXw84qWWAO5fgL9DrfjWDePyehCG18PItfUQahWEWskX4G/EEf1jRdQDRVhk0lh4dC6UZGBHpjxciib8IRw8QFXw/LDrxQlmErvPiOYAtAeoCJhVOZpAyXldgy+pvV8d7VRSYmnVeSWkaAB9L05oFEhPaFyfXwYRoOocTaBz322mVTv2S1tvLufz8HrItgchbl29bywA4NEDdASoF2C27zr1/wO6X8t1+q9Z8wAAAABJRU5ErkJggg=="></div>
+
+  <div class="hero">
+    <span class="tag">Bengaluru Tech Summit 2026</span>
+    <h1>Share Your Shelfie</h1>
+    <p>Post your AR250 moment on LinkedIn or Instagram in two taps.<br>
+    Don't forget to tag us @ANSCER Robotics so that we can find and repost it!</p>
+  </div>
+
+  <div class="card">
+    <div class="steps">
+      <div class="step"><b>1</b>Copy text</div>
+      <div class="step"><b>2</b>Open app</div>
+      <div class="step"><b>3</b>Paste &amp; post</div>
+    </div>
+
+    <p class="label">Your post</p>
+    <!-- EDIT YOUR POST TEXT BELOW (hashtags are wrapped in <span class="h">) -->
+    <div class="post" id="postText">Had a fun encounter with AR250 at Bengaluru Tech Summit 2026! 
+Great to see robotics innovation in action and experience how technology is reshaping the future of manufacturing and intralogistics.
+
+And that's a Shelfie worth sharing! @ANSCER Robotics
+
+📍 Bengaluru Tech Summit 2026
+
+<span class="h">#TakeAShelfie</span> <span class="h">#ANSCERRobotics</span> <span class="h">#BengaluruTechSummit</span> <span class="h">#IndustrialAutomation</span> <span class="h">#AMR</span></div>
+
+    <div class="btn-group">
+      <button class="btn btn-li" id="shareLinkedInBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        Copy Text &amp; Open LinkedIn
+      </button>
+
+      <button class="btn btn-ig" id="shareInstagramBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Copy Text &amp; Open Instagram
+      </button>
+    </div>
+
+    <div class="status" id="statusMsg" role="status"></div>
+
+    <div class="browser-links">
+      <span>Open in browser:</span>
+      <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener">LinkedIn</a>
+      <span>·</span>
+      <a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+
+  <footer>© ANSCER Robotics · #TakeAShelfie</footer>
+</div>
+
+<script>
+  const post = document.getElementById("postText");
+  const statusMsg = document.getElementById("statusMsg");
+
+  function setStatus(msg, warn){
+    statusMsg.textContent = msg;
+    statusMsg.className = "status" + (warn ? " warn" : "");
+  }
+
+  async function copyText(text){
+    try{
+      if(navigator.clipboard && window.isSecureContext){
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    }catch(e){}
+    // Fallback for older browsers / non-HTTPS
+    try{
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly","");
+      ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, 99999);
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      return ok;
+    }catch(e){
+      return false;
+    }
+  }
+
+  function openLinkedIn(){
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const web = "https://www.linkedin.com/feed/";
+    if(!isMobile){
+      window.open(web, "_blank") || (window.location.href = web);
+      return;
+    }
+    // Try app first; fallback to web after 1.5s if app doesn't open
+    const t = setTimeout(() => { if(!document.hidden) window.location.href = web; }, 1500);
+    document.addEventListener("visibilitychange", () => { if(document.hidden) clearTimeout(t); }, { once:true });
+    window.location.href = "linkedin://feed";
+  }
+
+  function openInstagram(){
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const web = "https://www.instagram.com/";
+    if(!isMobile){
+      window.open(web, "_blank") || (window.location.href = web);
+      return;
+    }
+    // Try app first; fallback to web after 1.5s if app doesn't open
+    const t = setTimeout(() => { if(!document.hidden) window.location.href = web; }, 1500);
+    document.addEventListener("visibilitychange", () => { if(document.hidden) clearTimeout(t); }, { once:true });
+    window.location.href = "instagram://app";
+  }
+
+  document.getElementById("shareLinkedInBtn").addEventListener("click", async () => {
+    const ok = await copyText(post.innerText.trim());
+    if(ok){
+      setStatus("✓ Copied! Opening LinkedIn — just paste into your post.");
+      setTimeout(openLinkedIn, 800);
+    }else{
+      setStatus("Couldn't auto-copy. Tap text above to copy, then open LinkedIn.", true);
+    }
+  });
+
+  document.getElementById("shareInstagramBtn").addEventListener("click", async () => {
+    const ok = await copyText(post.innerText.trim());
+    if(ok){
+      setStatus("✓ Copied! Opening Instagram — just paste into your post.");
+      setTimeout(openInstagram, 800);
+    }else{
+      setStatus("Couldn't auto-copy. Tap text above to copy, then open Instagram.", true);
+    }
+  });
+</script>
+</body>
+</html>
